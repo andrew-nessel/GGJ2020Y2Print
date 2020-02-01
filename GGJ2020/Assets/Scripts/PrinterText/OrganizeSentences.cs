@@ -20,6 +20,7 @@ public static class OrganizeSentences
             {
                 resultSentences[counter].Add(sent.Substring(1,sent.Length-2));
             }
+            counter++;
         }
         return resultSentences;
     }
