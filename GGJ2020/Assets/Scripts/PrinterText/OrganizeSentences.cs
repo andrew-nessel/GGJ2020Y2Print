@@ -2,21 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OrganizeSentences : MonoBehaviour
+public static class OrganizeSentences
 {
-    List<List<string>> sentences;
-    [SerializeField] TextAsset textFile;
-    // Start is called before the first frame update
-    void Start()
-    {
-        sentences = ReadFromCSV(textFile);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public static List<List<string>> ReadFromCSV(TextAsset text){
         List<List<string>> resultSentences = new List<List<string>>();
@@ -39,9 +26,5 @@ public class OrganizeSentences : MonoBehaviour
 
     public static string GetString(TextAsset text){
         return text.text;
-    }
-
-    public void LoadTextFile(TextAsset file){
-        textFile = file;
     }
 }
