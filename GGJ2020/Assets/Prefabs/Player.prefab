@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1749722645}
   - component: {fileID: 1749722644}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: InteractionCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,9 +57,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 151910b453597b049b0c02e6a4290a6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRepairAmount: 0
-  playerRepairCooldown: 0
-  currentCooldown: 0
+  playerRepairAmount: 2
+  playerRepairCooldown: 0.5
+  playerPickupCooldown: 0.2
+  currentRepairCooldown: 0
+  currentPickupCooldown: 0
+  pickupLocation: {fileID: 8692855114460397148}
+  isHolding: 0
+  heldObject: {fileID: 0}
 --- !u!1 &1403498295065209949
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,6 +97,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1749722643}
+  - {fileID: 5019889411851472270}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -175,3 +181,33 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &8692855114460397148
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5019889411851472270}
+  m_Layer: 0
+  m_Name: PickupPlace
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5019889411851472270
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8692855114460397148}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.358, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1403498295065209946}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
