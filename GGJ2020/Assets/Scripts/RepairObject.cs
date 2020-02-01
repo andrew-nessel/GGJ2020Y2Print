@@ -26,7 +26,7 @@ public class RepairObject : MonoBehaviour
 
     public virtual void DamageByPercentage(float percent){
         //Mathf.Max makes sure that it can be damaged at 0 damageAmount
-        damageAmount = Mathf.Min(Mathf.Max((1 + percent)*damageAmount, percent*maxDamageAmount), maxDamageAmount);
+        damageAmount = Mathf.Min(damageAmount+percent*maxDamageAmount, maxDamageAmount);
     }
     public virtual void DamageByFlatAmount(float amount){
         damageAmount+=amount;

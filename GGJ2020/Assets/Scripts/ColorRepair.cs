@@ -30,13 +30,13 @@ public class ColorRepair : RepairObject
         percent = Mathf.Min(1, percent*3);
         float rand = Random.Range(0.0f, 1.0f);
         if(rand<.5f){
-            cyanEmpty = Mathf.Min(Mathf.Max((1 + percent)*cyanEmpty, percent*maxDamageAmount), maxDamageAmount);
+            cyanEmpty = Mathf.Min(cyanEmpty+percent*maxDamageAmount, maxDamageAmount);
         }
         else if(rand<.75f){
-            magentaEmpty = Mathf.Min(Mathf.Max((1 + percent)*magentaEmpty, percent*maxDamageAmount), maxDamageAmount);
+            magentaEmpty = Mathf.Min(magentaEmpty+percent*maxDamageAmount, maxDamageAmount);
         }
         else{
-            yellowEmpty = Mathf.Min(Mathf.Max((1 + percent)*yellowEmpty, percent*maxDamageAmount), maxDamageAmount);
+            yellowEmpty = Mathf.Min(yellowEmpty+percent*maxDamageAmount, maxDamageAmount);
         }
     }
 
