@@ -8,10 +8,12 @@ public class PrintingManager : MonoBehaviour
     Bad,
     Terrible
     }
+
     Dictionary<string, Result> printedSentences;
     PrinterSentences sentences;
     [SerializeField] TextMesh printerText = null;
     [SerializeField] float printTime = 2f;
+    float epsilon = .0001f;
     //can be used to see how long the player took
     float startTime;
     float timePassed = 0.0f;
@@ -52,7 +54,7 @@ public class PrintingManager : MonoBehaviour
         return false;
     }
 
-    void PrintLine(){
+    public void PrintLine(){
         if(sentences.CheckEnd(counter)){
             //end condition? 
             return;
@@ -74,7 +76,22 @@ public class PrintingManager : MonoBehaviour
         }
         Debug.Log(newSentence);
         printedSentences.Add(newSentence, result);
-        printerText.text = newSentence+'\n'+printerText.text;
+        //To do: pass the current printer color percentages to GetTextColor
+        string color = GetTextColor(1f,1f,1f,1f);
+        printerText.text = "<color=#"+color+">"+newSentence+"</color>"+'\n'+printerText.text;
         counter++;
+    }
+
+    string GetTextColor(float cyan, float magnenta, float yellow, float black){
+        Color result;
+        if(black-cyan<epsilon&&black-magnenta<epsilon&&black-yellow<epsilon){
+            result = new Color(1-black,1-black,1-black);
+            return ColorUtility.ToHtmlStringRGB(result);
+        }
+        if(cyan<black){
+            black = cyan;
+        }
+        result = new Color(1-Mathf.Min(cyan+black,1),1-Mathf.Min(magnenta+black,1),1-Mathf.Min(yellow+black,1));
+            return ColorUtility.ToHtmlStringRGB(result);
     }
 }
