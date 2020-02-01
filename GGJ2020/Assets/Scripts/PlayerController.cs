@@ -16,10 +16,12 @@ public class PlayerController : MonoBehaviour
         cc = GetComponent<CharacterController>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    void Update(){
         movementDirection = HandleInput();
+    }
+    // Update is called once per frame
+    void FixedUpdate()
+    {
         MovePlayer(movementDirection);
     }
 
@@ -29,8 +31,10 @@ public class PlayerController : MonoBehaviour
         direction.x = Input.GetAxisRaw("Horizontal");
         direction.z = Input.GetAxisRaw("Vertical");
         //scales movement to camera direction
-        direction = Camera.main.transform.TransformDirection(direction);
         direction.Normalize();
+        //comment out line below to stop character from rotating w/ camera
+        transform.forward = new Vector3(Camera.main.transform.forward.x, transform.forward.y, Camera.main.transform.forward.z);
+        direction = Camera.main.transform.TransformDirection(direction);
         direction = direction*speed;
         direction.y = GetYAxis();
         return direction;
@@ -39,7 +43,7 @@ public class PlayerController : MonoBehaviour
 
     //current jumping is too variable, should prob be changed later oops
     float GetYAxis(){
-        float y = -gravity*Time.deltaTime;
+        float y = -gravity*Time.fixedDeltaTime;
         if(cc.isGrounded && Input.GetAxisRaw("Jump")==1){
             y += jumpPower;
         }
@@ -47,7 +51,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void MovePlayer(Vector3 velocity){
-        cc.Move(velocity*Time.deltaTime);
+        cc.Move(velocity*Time.fixedDeltaTime);
     }
 
 
