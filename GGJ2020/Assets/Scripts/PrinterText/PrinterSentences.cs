@@ -40,12 +40,16 @@ public class PrinterSentences : MonoBehaviour
     //takes in the index of the sentence collection and the index of which sentence to use and returns that sentence
     //returns empty string if index or the sentence index is out of bounds
     string GetSentence(int index, int sentIndex){
-        if(index>=possibleSentences.Count){
+        if(CheckEnd(index)){
             return "";
         }
-        if(sentIndex>=possibleSentences[index].Count){
+        if(sentIndex >= possibleSentences[index].Count){
             return "";
         }
         return possibleSentences[index][sentIndex];
+    }
+
+    public bool CheckEnd(int index){
+        return index >= possibleSentences.Count;
     }
 }
