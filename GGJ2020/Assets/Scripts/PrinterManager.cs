@@ -34,10 +34,18 @@ public class PrinterManager : MonoBehaviour
         for(int i = 0; i < pieces.Count; i++){
             timers[i]-=Time.deltaTime;
             if(timers[i]<=0){
-                pieces[i].DamageByPercentage(Random.Range(0.0f,1.0f));
+                pieces[i].DamageByPercentage(CalucalatePercentage());
                 timers[i] = Random.Range(minTimeToBreak, maxTimeToBreak);
             }
         }
+    }
+
+    float CalucalatePercentage(){
+        float percent = Random.Range(0.0f, 1.0f);
+            if(percent>.5f&&Random.Range(0.0f,1.0f)>.33){
+                percent = Random.Range(0.0f,.5f);
+            }
+        return percent;
     }
 
     void CheckPrint(){
@@ -60,7 +68,6 @@ public class PrinterManager : MonoBehaviour
             percentageBad+=piece.GetDamagePercentage();
         }
         percentageBad = percentageBad/pieces.Count;
-        Debug.Log(percentageBad);
         if(percentageBad<.10f){
             return LineManager.Result.Good;
         }
