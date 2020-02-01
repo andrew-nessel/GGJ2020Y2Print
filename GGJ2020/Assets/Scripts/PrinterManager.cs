@@ -60,14 +60,15 @@ public class PrinterManager : MonoBehaviour
             percentageBad+=piece.GetDamagePercentage();
         }
         percentageBad = percentageBad/pieces.Count;
-        if(percentageBad<.50f){
-            return LineManager.Result.Terrible;
+        Debug.Log(percentageBad);
+        if(percentageBad<.10f){
+            return LineManager.Result.Good;
         }
-        else if(percentageBad<.90f){
+        else if(percentageBad<.50f){
             return LineManager.Result.Bad;
         }
         else{
-            return LineManager.Result.Good;
+            return LineManager.Result.Terrible;
         }
     }
 
