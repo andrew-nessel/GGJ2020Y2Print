@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 public class LineManager : MonoBehaviour
 {
     public enum Result{
@@ -11,7 +12,7 @@ public class LineManager : MonoBehaviour
 
     Dictionary<string, Result> printedSentences;
     PrinterSentences sentences;
-    [SerializeField] TextMesh printerText = null;
+    [SerializeField] TextMeshPro printerText = null;
     [SerializeField] float printTime = 2f;
     float epsilon = .0001f;
     //can be used to see how long the player took
