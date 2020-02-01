@@ -14,10 +14,10 @@ public class LineManager : MonoBehaviour
     PrinterSentences sentences;
     [SerializeField] TextMeshPro printerText = null;
     [SerializeField] float printTime = 2f;
-    float epsilon = .0001f;
     //can be used to see how long the player took
     float startTime;
     float timePassed = 0.0f;
+    ColorRepair colors;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +28,7 @@ public class LineManager : MonoBehaviour
         if(sentences == null){
             sentences = GameObject.FindObjectOfType<PrinterSentences>();
         }
+        colors = GameObject.FindObjectOfType<ColorRepair>();
     }
     // Update is called once per frame
     void Update()
@@ -53,21 +54,19 @@ public class LineManager : MonoBehaviour
         }
         Debug.Log(newSentence);
         printedSentences.Add(newSentence, result);
-        //To do: pass the current printer color percentages to GetTextColor
-        string color = GetTextColor(1f,1f,1f,1f);
+        string color;
+        if(colors!=null){
+            color = GetTextColor(colors.GetCyanPercentage(),colors.GetMagentaPercentage(),colors.GetYellowPercentage());
+        }
+        else{
+            color = GetTextColor(1f,1f,1f);
+        }
         printerText.text = "<color=#"+color+">"+newSentence+"</color>"+'\n'+printerText.text;
     }
 
-    string GetTextColor(float cyan, float magnenta, float yellow, float black){
+    string GetTextColor(float cyan, float magnenta, float yellow){
         Color result;
-        if(black-cyan<epsilon&&black-magnenta<epsilon&&black-yellow<epsilon){
-            result = new Color(1-black,1-black,1-black);
-            return ColorUtility.ToHtmlStringRGB(result);
-        }
-        if(cyan<black){
-            black = cyan;
-        }
-        result = new Color(1-Mathf.Min(cyan+black,1),1-Mathf.Min(magnenta+black,1),1-Mathf.Min(yellow+black,1));
+        result = new Color(1-Mathf.Min(cyan,1),1-Mathf.Min(magnenta,1),1-Mathf.Min(yellow,1));
             return ColorUtility.ToHtmlStringRGB(result);
     }
 
