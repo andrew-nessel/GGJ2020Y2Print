@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class PrintingManager : MonoBehaviour
+public class LineManager : MonoBehaviour
 {
     public enum Result{
     Good,
@@ -17,7 +17,6 @@ public class PrintingManager : MonoBehaviour
     //can be used to see how long the player took
     float startTime;
     float timePassed = 0.0f;
-    int counter = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,46 +31,23 @@ public class PrintingManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckPrint();
+
     }
 
-    void CheckPrint(){
-        //won't print/pass time if there's a jam
-        if(CheckJam()){
-            return;
-        }
-        timePassed+=Time.deltaTime;
-        //might change the if statement below to be more dependent on the broken parts than just based on a flat time
-        if(timePassed>=printTime){
-            PrintLine();
-            //To do: add possible effects either here or in print line like different colors, "invisible" ink
-            timePassed = 0.0f;
-        }
-    }
-
-    bool CheckJam(){
-        //To do: change so that it actually checks if there is a jam lol
-        return false;
-    }
-
-    public void PrintLine(){
+    public void PrintLine(Result result, int counter){
         if(sentences.CheckEnd(counter)){
             //end condition? 
             return;
         }
         string newSentence;
-        Result result;
         //check w/e has the amount of shit wrong w/ it and determine which line 2 print here
-        if(true){
-            result = Result.Good;
+        if(result == Result.Good){
             newSentence = sentences.GetGoodAtIndex(counter);
         }
-        else if(false){
-            result = Result.Bad;
+        else if(result == Result.Bad){
             newSentence = sentences.GetBadAtIndex(counter);
         }
         else{
-            result = Result.Terrible;
             newSentence = sentences.GetWorstAtIndex(counter);
         }
         Debug.Log(newSentence);
@@ -79,7 +55,6 @@ public class PrintingManager : MonoBehaviour
         //To do: pass the current printer color percentages to GetTextColor
         string color = GetTextColor(1f,1f,1f,1f);
         printerText.text = "<color=#"+color+">"+newSentence+"</color>"+'\n'+printerText.text;
-        counter++;
     }
 
     string GetTextColor(float cyan, float magnenta, float yellow, float black){
@@ -93,5 +68,9 @@ public class PrintingManager : MonoBehaviour
         }
         result = new Color(1-Mathf.Min(cyan+black,1),1-Mathf.Min(magnenta+black,1),1-Mathf.Min(yellow+black,1));
             return ColorUtility.ToHtmlStringRGB(result);
+    }
+
+    public bool CheckEnd(int counter){
+        return sentences.CheckEnd(counter);
     }
 }
