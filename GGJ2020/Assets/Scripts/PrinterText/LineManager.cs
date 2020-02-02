@@ -13,15 +13,10 @@ public class LineManager : MonoBehaviour
     Dictionary<string, Result> printedSentences;
     PrinterSentences sentences;
     [SerializeField] TextMeshPro printerText = null;
-    [SerializeField] float printTime = 2f;
-    //can be used to see how long the player took
-    float startTime;
-    float timePassed = 0.0f;
     ColorRepair colors;
     // Start is called before the first frame update
     void Start()
     {
-        startTime = Time.time;
         printedSentences = new Dictionary<string, Result>();
         printerText.text = "";
         sentences = GetComponent<PrinterSentences>();
@@ -56,17 +51,17 @@ public class LineManager : MonoBehaviour
         printedSentences.Add(newSentence, result);
         string color;
         if(colors!=null){
-            color = GetTextColor(colors.GetCyanPercentage(),colors.GetMagentaPercentage(),colors.GetYellowPercentage());
+            color = GetTextColor(colors.GetCyanPercentage(),colors.GetMagentaPercentage(),colors.GetYellowPercentage(), colors.GetBlackPercentage());
         }
         else{
-            color = GetTextColor(1f,1f,1f);
+            color = GetTextColor(1f,1f,1f,1f);
         }
         printerText.text = "<color=#"+color+">"+newSentence+"</color>"+'\n'+printerText.text;
     }
 
-    string GetTextColor(float cyan, float magnenta, float yellow){
+    string GetTextColor(float cyan, float magnenta, float yellow, float black){
         Color result;
-        result = new Color(1-Mathf.Min(cyan,1),1-Mathf.Min(magnenta,1),1-Mathf.Min(yellow,1));
+        result = new Color((1-Mathf.Min(cyan,1))*(1-Mathf.Min(black, 1)),(1-Mathf.Min(magnenta,1))*(1-Mathf.Min(black, 1)),(1-Mathf.Min(yellow,1))*(1-Mathf.Min(black, 1)));
             return ColorUtility.ToHtmlStringRGB(result);
     }
 

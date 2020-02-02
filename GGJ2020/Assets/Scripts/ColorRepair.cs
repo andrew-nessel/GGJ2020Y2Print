@@ -7,6 +7,7 @@ public class ColorRepair : RepairObject
     [SerializeField] float cyanEmpty = 0;
     [SerializeField] float magentaEmpty = 0;
     [SerializeField] float yellowEmpty = 0;
+    [SerializeField] float blackEmpty = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,8 +36,11 @@ public class ColorRepair : RepairObject
         else if(rand<.75f){
             magentaEmpty = Mathf.Min(magentaEmpty+percent*maxDamageAmount, maxDamageAmount);
         }
-        else{
+        else if(rand<.825){
             yellowEmpty = Mathf.Min(yellowEmpty+percent*maxDamageAmount, maxDamageAmount);
+        }
+        else{
+            blackEmpty = Mathf.Min(blackEmpty+percent*maxDamageAmount, maxDamageAmount);
         }
     }
 
@@ -44,6 +48,7 @@ public class ColorRepair : RepairObject
         cyanEmpty += amount;
         magentaEmpty += amount;
         yellowEmpty += amount;
+        blackEmpty +=amount;
     }
 
     public override float GetDamagePercentage(){
@@ -60,6 +65,10 @@ public class ColorRepair : RepairObject
 
     public float GetYellowPercentage(){
         return 1-(yellowEmpty/maxDamageAmount);
+    }
+
+    public float GetBlackPercentage(){
+        return 1-(blackEmpty/maxDamageAmount);
     }
 
 
