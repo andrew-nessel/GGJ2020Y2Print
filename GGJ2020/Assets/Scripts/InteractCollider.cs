@@ -27,6 +27,7 @@ public class InteractCollider : MonoBehaviour
                     currentPickupCooldown = playerPickupCooldown;
                 }else{
                     heldObject.transform.position = snapLocation.transform.position;
+                    snapLocation.GetComponent<MeshRenderer>().enabled = false;
                     heldObject.transform.parent = null;
                     heldObject.GetComponent<Rigidbody>().isKinematic = true;
                     heldObject = null;
