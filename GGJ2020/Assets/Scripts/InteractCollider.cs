@@ -27,6 +27,8 @@ public class InteractCollider : MonoBehaviour
     void Update(){
         if(isHolding){
             if(Input.GetButton("Pickup") && (currentPickupCooldown <= 0f)){
+                Material mat = heldObject.GetComponent<Renderer>().material;
+                SetOpaque(mat);
                 if(snapLocation == null){
                     heldObject.transform.position = pickupLocation.transform.position + pickupLocation.transform.forward*15 + new Vector3(0f, 3.5f, 0f);
                     heldObject.transform.parent = null;
@@ -90,6 +92,9 @@ public class InteractCollider : MonoBehaviour
                 if(cart != null){
                     cart.RemoveSelf();
                 }
+                Material mat = heldObject.GetComponent<Renderer>().material;
+                SetFade(mat);
+                mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, .5f);
             }
         }
     }
@@ -113,5 +118,26 @@ public class InteractCollider : MonoBehaviour
                 snapLocation = null;
             }
         }
+    }
+
+    //changing rendering mode things, parts of code taken from https://answers.unity.com/questions/1004666/change-material-rendering-mode-in-runtime.html
+
+    void SetOpaque(Material mat){
+        mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+        mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+        mat.SetInt("_ZWrite", 1);
+        mat.DisableKeyword("_ALPHATEST_ON");
+        mat.DisableKeyword("_ALPHABLEND_ON");
+        mat.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        mat.renderQueue = -1;
+    }
+    void SetFade(Material mat){
+        mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        mat.SetInt("_ZWrite", 0);
+        mat.DisableKeyword("_ALPHATEST_ON");
+        mat.EnableKeyword("_ALPHABLEND_ON");
+        mat.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        mat.renderQueue = 3000;
     }
 }
