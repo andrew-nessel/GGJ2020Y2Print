@@ -29,8 +29,8 @@ public class InteractCollider : MonoBehaviour
             if(Input.GetButton("Pickup") && (currentPickupCooldown <= 0f)){
                 if(snapLocation == null){
                     heldObject.transform.position = pickupLocation.transform.position + pickupLocation.transform.forward*15 + new Vector3(0f, 3.5f, 0f);
-                    heldObject.transform.parent = null;
                     Rigidbody rb = heldObject.GetComponent<Rigidbody>();
+                    heldObject.transform.parent = null;
                     rb.isKinematic = false;
                     rb.useGravity = true;
                     Debug.Log(rb.velocity);
@@ -40,13 +40,14 @@ public class InteractCollider : MonoBehaviour
                 }else{
                     heldObject.transform.position = snapLocation.transform.position;
                     InkAmount cart = heldObject.GetComponent<InkAmount>();
+                    snapLocation.GetComponent<InkPlacement>().addCartrigeObject(heldObject);
                     snapLocation.GetComponent<MeshRenderer>().enabled = false;
-                    heldObject.transform.parent = null;
                     heldObject.GetComponent<Rigidbody>().isKinematic = true;
                     heldObject = null;
                     isHolding = false;
                     currentPickupCooldown = playerPickupCooldown;
                     ColorRepair ink = snapLocation.GetComponent<ColorRepair>();
+                    snapLocation = null;
                     if(ink != null && cart != null){
                         ink.LoadCartridge(cart);
                     }
@@ -80,13 +81,16 @@ public class InteractCollider : MonoBehaviour
         if(string.Equals(otherGO.tag, "Pickupable")){
             if(Input.GetButton("Pickup") && (!isHolding) && (currentPickupCooldown <= 0f)){
                 otherGO.transform.position = pickupLocation.transform.position;
-                otherGO.transform.parent = pickupLocation.transform;
                 heldObject = otherGO;
                 heldObject.GetComponent<Rigidbody>().isKinematic = true;
                 isHolding = true;
                 Pickup.Play();
                 currentPickupCooldown = playerPickupCooldown;
                 InkAmount cart = heldObject.GetComponent<InkAmount>();
+                if(snapLocation != null){
+                    snapLocation.GetComponent<InkPlacement>().removeCartrigeObject();
+                }
+                otherGO.transform.parent = pickupLocation.transform;
                 if(cart != null){
                     cart.RemoveSelf();
                 }
