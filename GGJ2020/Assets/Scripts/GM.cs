@@ -45,6 +45,7 @@ public class GM : MonoBehaviour
     }
 
     public void EndScreen(float numberScore, string finishedText){
+        Cursor.lockState = CursorLockMode.None;
         PlayerPrefs.SetFloat("Score", numberScore);
         PlayerPrefs.SetString("FinishedText", finishedText);
         SceneManager.LoadScene("EndScene");
