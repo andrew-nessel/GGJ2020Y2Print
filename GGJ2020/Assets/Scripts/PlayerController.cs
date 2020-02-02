@@ -11,9 +11,45 @@ public class PlayerController : MonoBehaviour
     CharacterController cc;
     Vector3 movementDirection;
     // Start is called before the first frame update
+
+
+  //FOOTSTEP SFX
+    public AudioSource steps;
+    public AudioClip leftfoot;
+    public AudioClip rightfoot;
+    private bool foot = false;
+    public float footstepcooldown = 0.15f;
+    public float currentfootstepcooldown;
+
+
+    public void setFootstep(){
+
+      if (foot){
+        steps.clip = leftfoot;
+      } else {
+        steps.clip = rightfoot;
+      }
+    }
+
+    private void Footsteps(Vector3 movementDirection){
+      if(currentfootstepcooldown <= 0f){
+        if((Mathf.Abs(movementDirection.x) + Mathf.Abs(movementDirection.z)) > 0.2f){
+          setFootstep();
+          steps.Play();
+          foot = !foot;
+          currentfootstepcooldown = footstepcooldown;
+        }
+      } else {
+        currentfootstepcooldown -= Time.fixedDeltaTime;
+      }
+
+
+    }
+
+
     void Start()
     {
-        cc = GetComponent<CharacterController>();
+    cc = GetComponent<CharacterController>();
     }
 
     void Update(){
@@ -23,6 +59,8 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         MovePlayer(movementDirection);
+        Footsteps(movementDirection);
+        Debug.Log(movementDirection);
     }
 
 
