@@ -43,4 +43,10 @@ public class GM : MonoBehaviour
     public void goToMenu(){
         SceneManager.LoadScene("MainMenu");
     }
+
+    public void EndScreen(float numberScore, string finishedText){
+        PlayerPrefs.SetFloat("Score", numberScore);
+        PlayerPrefs.SetString("FinishedText", finishedText);
+        SceneManager.LoadScene("EndScene");
+    }
 }

@@ -13,6 +13,7 @@ public class PrinterManager : MonoBehaviour
     float timePassed = 0.0f;
     LineManager lineManager;
     int counter = 0;
+    GM gm;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,7 @@ public class PrinterManager : MonoBehaviour
         foreach(var piece in pieces){
             timers.Add(Random.Range(minTimeToBreak, maxTimeToBreak));
         }
+        gm = GameObject.FindObjectOfType<GM>();
     }
 
     // Update is called once per frame
@@ -63,7 +65,9 @@ public class PrinterManager : MonoBehaviour
             timePassed = 0.0f;
             counter++;
             if(lineManager.CheckEnd(counter)){
-                Debug.Log("end");
+                if(gm != null){
+                    gm.EndScreen(lineManager.GetCurrentOverallResult(), lineManager.GetFinishedText());
+                }
             }
         }
     }

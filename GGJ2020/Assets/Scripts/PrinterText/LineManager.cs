@@ -97,4 +97,8 @@ public class LineManager : MonoBehaviour
     public float GetCurrentOverallResult(){
         return totalSentenceResults/(float)printedSentences.Count;
     }
+
+    public string GetFinishedText(){
+        return printerText.text;
+    }
 }
