@@ -23,7 +23,6 @@ public class PlayerController : MonoBehaviour
 
 
     public void setFootstep(){
-
       if (foot){
         steps.clip = leftfoot;
       } else {

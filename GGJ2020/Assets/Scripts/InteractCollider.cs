@@ -15,14 +15,13 @@ public class InteractCollider : MonoBehaviour
     public GameObject heldObject;
     public GameObject snapLocation;
 
-    public AudioSource pickupSFX;
-    public AudioSource repairSFX;
-    public AudioClip pickup1;
-    public AudioClip repair1;
+    public AudioSource Pickup;
+    public AudioSource Repair;
+    public AudioClip pickupSFX;
+    public AudioClip[] repairSFX;
 
     void Start(){
-      pickupSFX.clip = pickup1;
-      repairSFX.clip = repair1;
+      Pickup.clip = pickupSFX;
     }
 
     void Update(){
@@ -70,7 +69,8 @@ public class InteractCollider : MonoBehaviour
         if(string.Equals(otherGO.tag, "Repairable")){
             if(Input.GetButton("Repair") && (!isHolding)){
                 if(currentPickupCooldown <= 0f){
-                    repairSFX.Play();
+                    Repair.clip = repairSFX[Random.Range(0,repairSFX.Length)];
+                    Repair.Play();
                     RepairObject repairO = otherGO.GetComponent<RepairObject>();
                     repairO.sendRepairs(playerRepairAmount);
                     currentPickupCooldown = playerRepairCooldown;
@@ -84,7 +84,7 @@ public class InteractCollider : MonoBehaviour
                 heldObject = otherGO;
                 heldObject.GetComponent<Rigidbody>().isKinematic = true;
                 isHolding = true;
-                pickupSFX.Play();
+                Pickup.Play();
                 currentPickupCooldown = playerPickupCooldown;
                 InkAmount cart = heldObject.GetComponent<InkAmount>();
                 if(cart != null){
