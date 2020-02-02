@@ -43,10 +43,7 @@ public class PrinterManager : MonoBehaviour
     }
 
     float CalucalatePercentage(){
-        float percent = Random.Range(0.0f, 1.0f);
-            if(percent>.5f&&Random.Range(0.0f,1.0f)>.33){
-                percent = Random.Range(0.0f,.5f);
-            }
+        float percent = Random.Range(0.0f, 0.5f);
         return percent;
     }
 
