@@ -74,18 +74,18 @@ public class PlayerController : MonoBehaviour
         transform.forward = new Vector3(Camera.main.transform.forward.x, transform.forward.y, Camera.main.transform.forward.z);
         direction = Camera.main.transform.TransformDirection(direction);
         direction = direction*speed;
-        direction.y = GetYAxis();
+        direction.y = CheckJump();
         return direction;
     }
 
 
     //current jumping is too variable, should prob be changed later oops
-    float GetYAxis(){
-        float y = -gravity*Time.fixedDeltaTime;
+    float CheckJump(){
+        Vector3 newVelocity = new Vector3(cc.velocity.x, cc.velocity.y-gravity*Time.fixedDeltaTime, cc.velocity.z);
         if(cc.isGrounded && Input.GetAxisRaw("Jump")==1){
-            y += jumpPower;
+            newVelocity.y += jumpPower;
         }
-        return y;
+        return newVelocity.y;
     }
 
     public void MovePlayer(Vector3 velocity){
