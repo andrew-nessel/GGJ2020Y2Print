@@ -12,6 +12,8 @@ public class RepairObject : MonoBehaviour
     public AudioSource Damage;
     public AudioClip[] damageSFX;
     bool needsRepair = false;
+    public ParticleSystem particles;
+    public bool particlesOn = false;
 
     private void playDamageSFX(){
       if (needsRepair == false){
@@ -38,6 +40,7 @@ public class RepairObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        particles.Stop();
         damageSlider.value = 0f;
         Damage.spatialBlend = 1.0f;
 
@@ -47,6 +50,14 @@ public class RepairObject : MonoBehaviour
     void Update()
     {
       playDamageSFX();
+        
+        if((GetDamagePercentage() > .75f) && (!particlesOn)){
+            particles.Play();
+            particlesOn = true;
+        }else{
+            particles.Stop();
+            particlesOn = false;
+        }
     }
 
     public virtual void sendRepairs(float repairAmount){

@@ -11,6 +11,8 @@ public class InkBaseMovement : MonoBehaviour
     public float minSpeed;
     public float currentSpeed;
     public Vector3 newPosition;
+    public RepairObject repairObject;
+
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +23,7 @@ public class InkBaseMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(repairObject.GetDamagePercentage() < .5f){
         if(currentWaypoint){
             if(transform.position.z >= waypoint1.position.z){
                 newPosition = transform.position;
@@ -39,6 +42,7 @@ public class InkBaseMovement : MonoBehaviour
                 currentWaypoint = !currentWaypoint;
                 currentSpeed = Random.Range(minSpeed, maxSpeed);
             }
+        }
         }
 
     }
