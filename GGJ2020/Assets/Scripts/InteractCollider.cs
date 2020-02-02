@@ -15,6 +15,13 @@ public class InteractCollider : MonoBehaviour
     public GameObject heldObject;
     public GameObject snapLocation;
 
+    public AudioSource pickupSFX;
+    public AudioClip pickup1;
+
+    void Start(){
+      pickupSFX.clip = pickup1;
+    }
+
     void Update(){
         if(isHolding){
             if(Input.GetButton("Pickup") && (currentPickupCooldown <= 0f)){
@@ -38,7 +45,7 @@ public class InteractCollider : MonoBehaviour
         if(currentRepairCooldown > 0f){
             currentRepairCooldown -= Time.deltaTime;
         }
-        
+
         if(currentPickupCooldown > 0f){
             currentPickupCooldown -= Time.deltaTime;
         }
@@ -64,6 +71,7 @@ public class InteractCollider : MonoBehaviour
                 heldObject = otherGO;
                 heldObject.GetComponent<Rigidbody>().isKinematic = true;
                 isHolding = true;
+                pickupSFX.Play();
                 currentPickupCooldown = playerPickupCooldown;
             }
         }
