@@ -15,9 +15,13 @@ public class LineManager : MonoBehaviour
     float totalSentenceResults = 0.0f;
     [SerializeField] TextMeshPro printerText = null;
     ColorRepair colors;
+    [SerializeField] GameObject paper = null;
+    [SerializeField] Vector3 paperShuffleDirection = Vector3.right;
+    [SerializeField] float paperMovementAmount = 2f; 
     // Start is called before the first frame update
     void Start()
     {
+        paperShuffleDirection.Normalize();
         printedSentences = new Dictionary<string, Result>();
         printerText.text = "";
         sentences = GetComponent<PrinterSentences>();
@@ -58,7 +62,14 @@ public class LineManager : MonoBehaviour
         else{
             color = GetTextColor(1f,1f,1f,1f);
         }
-        printerText.text = "<color=#"+color+">"+newSentence+"</color>"+'\n'+printerText.text;
+        printerText.text = printerText.text+"\n<color=#"+color+">"+newSentence+"</color>";
+        if(paper!=null){
+            ShufflePaper();
+        }
+    }
+
+    void ShufflePaper(){
+        paper.transform.position += paperShuffleDirection*paperMovementAmount;
     }
 
     string GetTextColor(float cyan, float magnenta, float yellow, float black){

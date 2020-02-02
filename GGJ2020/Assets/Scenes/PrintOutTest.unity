@@ -208,9 +208,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxDamageAmount: 100
   damageAmount: 0
+  damageSlider: {fileID: 0}
   cyanEmpty: 0
   magentaEmpty: 0
   yellowEmpty: 0
+  blackEmpty: 0
 --- !u!33 &386785606
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -382,7 +384,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   printerText: {fileID: 1858121752}
-  printTime: 2
+  paper: {fileID: 1080748029}
+  paperShuffleDirection: {x: 0, y: 0, z: 2}
+  paperMovementAmount: 2
 --- !u!114 &598417869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -623,7 +627,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1073282560}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 3.4, z: -16.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -734,7 +738,7 @@ GameObject:
   - component: {fileID: 1080748031}
   - component: {fileID: 1080748030}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Paper?
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -809,8 +813,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1080748029}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.17734528, y: -0.32, z: -4.590518}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 1.1, y: -0.32, z: -15.5}
+  m_LocalScale: {x: 2, y: 1, z: 3}
   m_Children:
   - {fileID: 1858121756}
   m_Father: {fileID: 0}
@@ -866,7 +870,7 @@ MonoBehaviour:
     the evil Galactic
     Empire.
 
-    
+
 
     During the battle, Rebel
 
@@ -884,17 +888,17 @@ MonoBehaviour:
 
     destroy an entire planet.
 
-    
 
-    Pursued by
-    the Empire''s
 
-    sinister agents, Princess
+    Pursued by the Empire''s
+
+    sinister
+    agents, Princess
 
     Leia races home aboard her
 
-    starship,
-    custodian of the
+    starship, custodian of
+    the
 
     stolen plans that can save
 
@@ -948,7 +952,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 48
+  m_firstOverflowCharacterIndex: 29
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -969,15 +973,15 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 2.022932, w: 0}
   m_textInfo:
     textComponent: {fileID: 1858121752}
-    characterCount: 525
+    characterCount: 506
     spriteCount: 0
-    spaceCount: 85
+    spaceCount: 87
     wordCount: 83
     linkCount: 0
-    lineCount: 30
+    lineCount: 41
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -1057,15 +1061,15 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1858121751}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 3.84}
+  m_LocalScale: {x: 0.5, y: 0.33333334, z: 1}
   m_Children: []
   m_Father: {fileID: 1080748033}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.1, y: 0.001}
+  m_AnchoredPosition: {x: 0.41132736, y: 0.32}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}

@@ -37,12 +37,17 @@ public class InteractCollider : MonoBehaviour
                     currentPickupCooldown = playerPickupCooldown;
                 }else{
                     heldObject.transform.position = snapLocation.transform.position;
+                    InkAmount cart = heldObject.GetComponent<InkAmount>();
                     snapLocation.GetComponent<MeshRenderer>().enabled = false;
                     heldObject.transform.parent = null;
                     heldObject.GetComponent<Rigidbody>().isKinematic = true;
                     heldObject = null;
                     isHolding = false;
                     currentPickupCooldown = playerPickupCooldown;
+                    ColorRepair ink = snapLocation.GetComponent<ColorRepair>();
+                    if(ink != null && cart != null){
+                        ink.LoadCartridge(cart);
+                    }
                 }
             }
         }
@@ -78,6 +83,10 @@ public class InteractCollider : MonoBehaviour
                 isHolding = true;
                 pickupSFX.Play();
                 currentPickupCooldown = playerPickupCooldown;
+                InkAmount cart = heldObject.GetComponent<InkAmount>();
+                if(cart != null){
+                    cart.RemoveSelf();
+                }
             }
         }
     }
