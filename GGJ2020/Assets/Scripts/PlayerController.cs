@@ -59,7 +59,6 @@ public class PlayerController : MonoBehaviour
     {
         MovePlayer(movementDirection);
         Footsteps(movementDirection);
-        Debug.Log(movementDirection);
     }
 
 
