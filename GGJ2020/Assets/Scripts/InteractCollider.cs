@@ -29,9 +29,12 @@ public class InteractCollider : MonoBehaviour
         if(isHolding){
             if(Input.GetButton("Pickup") && (currentPickupCooldown <= 0f)){
                 if(snapLocation == null){
-                    heldObject.transform.position = pickupLocation.transform.position + Vector3.forward + new Vector3(0f, 1.5f, 0f);
+                    heldObject.transform.position = pickupLocation.transform.position + pickupLocation.transform.forward*15 + new Vector3(0f, 3.5f, 0f);
                     heldObject.transform.parent = null;
-                    heldObject.GetComponent<Rigidbody>().isKinematic = false;
+                    Rigidbody rb = heldObject.GetComponent<Rigidbody>();
+                    rb.isKinematic = false;
+                    rb.useGravity = true;
+                    Debug.Log(rb.velocity);
                     heldObject = null;
                     isHolding = false;
                     currentPickupCooldown = playerPickupCooldown;
