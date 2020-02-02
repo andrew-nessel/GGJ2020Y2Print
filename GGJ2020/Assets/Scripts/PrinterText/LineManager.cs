@@ -12,6 +12,7 @@ public class LineManager : MonoBehaviour
 
     Dictionary<string, Result> printedSentences;
     PrinterSentences sentences;
+    float totalSentenceResults = 0.0f;
     [SerializeField] TextMeshPro printerText = null;
     ColorRepair colors;
     // Start is called before the first frame update
@@ -49,6 +50,7 @@ public class LineManager : MonoBehaviour
         }
         Debug.Log(newSentence);
         printedSentences.Add(newSentence, result);
+        totalSentenceResults += ResultToFloat(result);
         string color;
         if(colors!=null){
             color = GetTextColor(colors.GetCyanPercentage(),colors.GetMagentaPercentage(),colors.GetYellowPercentage(), colors.GetBlackPercentage());
@@ -67,5 +69,21 @@ public class LineManager : MonoBehaviour
 
     public bool CheckEnd(int counter){
         return sentences.CheckEnd(counter);
+    }
+
+    public float ResultToFloat(Result result){
+        if(result == Result.Good){
+            return 1f;
+        }
+        else if(result == Result.Bad){
+            return 2f;
+        }
+        else{
+            return 3f;
+        }
+    }
+
+    public float GetCurrentOverallResult(){
+        return totalSentenceResults/(float)printedSentences.Count;
     }
 }
