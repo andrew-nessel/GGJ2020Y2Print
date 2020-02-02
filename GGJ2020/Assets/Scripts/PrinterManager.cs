@@ -53,12 +53,18 @@ public class PrinterManager : MonoBehaviour
         if(CheckJam()){
             return;
         }
+        if(lineManager.CheckEnd(counter)){
+            return;
+        }
         timePassed += Time.deltaTime;
         //might change the if statement below to be more dependent on the broken parts than just based on a flat time
         if(timePassed >= printTime){
             lineManager.PrintLine(GetResult(), counter);
             timePassed = 0.0f;
             counter++;
+            if(lineManager.CheckEnd(counter)){
+                Debug.Log("end");
+            }
         }
     }
     
