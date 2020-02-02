@@ -26,7 +26,7 @@ public class InteractCollider : MonoBehaviour
         if(isHolding){
             if(Input.GetButton("Pickup") && (currentPickupCooldown <= 0f)){
                 if(snapLocation == null){
-                    heldObject.transform.position = pickupLocation.transform.position + Vector3.forward;
+                    heldObject.transform.position = pickupLocation.transform.position + Vector3.forward + new Vector3(0f, 1.5f, 0f);
                     heldObject.transform.parent = null;
                     heldObject.GetComponent<Rigidbody>().isKinematic = false;
                     heldObject = null;
@@ -34,6 +34,7 @@ public class InteractCollider : MonoBehaviour
                     currentPickupCooldown = playerPickupCooldown;
                 }else{
                     heldObject.transform.position = snapLocation.transform.position;
+                    snapLocation.GetComponent<MeshRenderer>().enabled = false;
                     heldObject.transform.parent = null;
                     heldObject.GetComponent<Rigidbody>().isKinematic = true;
                     heldObject = null;
