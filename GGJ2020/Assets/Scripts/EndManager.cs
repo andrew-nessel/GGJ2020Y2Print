@@ -13,7 +13,7 @@ public class EndManager : MonoBehaviour
     void Start()
     {
         endText.text = PlayerPrefs.GetString("FinishedText", "Error");
-        scoreText.text = "Final Score: " + ((3-PlayerPrefs.GetFloat("Score", 3))/3) + "%";
+        scoreText.text = "Final Score: " + ((2-(PlayerPrefs.GetFloat("Score", 3)-1))/2)*100 + "%";
     }
 
     // Update is called once per frame
