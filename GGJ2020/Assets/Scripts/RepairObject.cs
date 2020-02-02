@@ -1,4 +1,4 @@
-﻿using System.Collections;
+  ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,16 +9,44 @@ public class RepairObject : MonoBehaviour
     public float damageAmount;
     public Slider damageSlider;
 
+    public AudioSource Damage;
+    public AudioClip[] damageSFX;
+    bool needsRepair = false;
+
+    private void playDamageSFX(){
+      if (needsRepair == false){
+        if(GetDamagePercentage() > 0.5f){
+          needsRepair = true;
+          Damage.loop = true;
+          Damage.clip = damageSFX[0];
+          Damage.Play();
+        }
+        else if (GetDamagePercentage() > 0.75f) {
+              needsRepair = true;
+              Damage.loop = true;
+              Damage.clip = damageSFX[1];
+              Damage.Play();
+            }
+          } else if (GetDamagePercentage() < 0.5f) {
+            needsRepair = false;
+            Damage.clip = damageSFX[2];
+            Damage.loop = false;
+            Damage.Play();
+         }
+      }
+
     // Start is called before the first frame update
     void Start()
     {
         damageSlider.value = 0f;
+        Damage.spatialBlend = 1.0f;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+      playDamageSFX();
     }
 
     public virtual void sendRepairs(float repairAmount){
