@@ -10,6 +10,7 @@ public class PrinterSentences : MonoBehaviour
     void Start()
     {
         possibleSentences = OrganizeSentences.ReadFromCSV(file);
+        Debug.Log(possibleSentences.Count);
     }
 
     // Update is called once per frame
