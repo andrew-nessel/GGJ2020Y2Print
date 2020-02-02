@@ -8,6 +8,7 @@ public class ColorRepair : RepairObject
     [SerializeField] float magentaEmpty = 0;
     [SerializeField] float yellowEmpty = 0;
     [SerializeField] float blackEmpty = 0;
+    InkAmount currentCart = null;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,10 +25,31 @@ public class ColorRepair : RepairObject
         cyanEmpty -= repairAmount;
         magentaEmpty -= repairAmount;
         yellowEmpty -= repairAmount;
+        blackEmpty -= repairAmount;
+    }
+
+    public void LoadCartridge(InkAmount newCart){
+        currentCart = newCart;
+        cyanEmpty = currentCart.cyanEmpty;
+        magentaEmpty = currentCart.magentaEmpty;
+        yellowEmpty = currentCart.yellowEmpty;
+        blackEmpty = currentCart.blackEmpty;
+        currentCart.UpdateColorRepair(this);
+    }
+
+    public void RemoveCartridge(){
+        currentCart = null;
+        cyanEmpty = maxDamageAmount;
+        magentaEmpty = maxDamageAmount;
+        yellowEmpty = maxDamageAmount;
+        blackEmpty = maxDamageAmount;
     }
 
     public override void DamageByPercentage(float percent){
         //since theres three different values percent is multipled by 3 and capped at 1
+        if(currentCart == null){
+            return;
+        }
         percent = Mathf.Min(1, percent*3);
         float rand = Random.Range(0.0f, 1.0f);
         if(rand<.5f){
@@ -42,6 +64,8 @@ public class ColorRepair : RepairObject
         else{
             blackEmpty = Mathf.Min(blackEmpty+percent*maxDamageAmount, maxDamageAmount);
         }
+        currentCart.UpdateInk(cyanEmpty, magentaEmpty, yellowEmpty, blackEmpty);
+
     }
 
     public override void DamageByFlatAmount(float amount){

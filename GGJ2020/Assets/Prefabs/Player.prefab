@@ -214,9 +214,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7543c3d9ccd93584a84cb5838b7b8463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
-  jumpPower: 70
-  gravity: 400
+  speed: 20
+  jumpPower: 250
+  gravity: 500
   steps: {fileID: 581528785}
   leftfoot: {fileID: 8300000, guid: c56767a20d9ba48c5a1e0f88a1721881, type: 3}
   rightfoot: {fileID: 8300000, guid: 9cebdf5bcd2cf4a83ac3dc25424fc9a6, type: 3}
